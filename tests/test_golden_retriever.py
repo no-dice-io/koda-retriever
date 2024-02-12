@@ -1,6 +1,7 @@
 from asyncio import run
 from . import GoldenRetriever
 
+
 def test_init(setup):
 
     retriever = setup.get("retriever")
