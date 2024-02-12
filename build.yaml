@@ -1,0 +1,14 @@
+- name: Install dependencies
+  run: |
+    python -m pip install --upgrade pip
+    pip install -r requirements.txt
+    pip install black dynaconf  # Install black & dynaconf
+
+- name: Lint with Black
+  run: |
+    black --check /workspaces/cerebro/cerebro/golden_retriever  # Run black on the directory
+
+- name: Test with pytest
+  run: |
+    pip install pytest
+    pytest ./tests
