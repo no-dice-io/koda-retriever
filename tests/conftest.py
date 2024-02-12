@@ -1,17 +1,15 @@
 from config import settings
 from llama_index.llms import AzureOpenAI
 from llama_index.vector_stores import PGVectorStore
-from llama_index import ServiceContext
-from llama_index.embeddings import AzureOpenAIEmbedding
+from llama_index import ServiceContext, VectorStoreIndex, Document
+from llama_index.embeddings import OpenAIEmbedding, AzureOpenAIEmbedding
 from llama_index.postprocessor import LLMRerank
 from llama_index.indices.vector_store import VectorStoreIndex
-from . import (
-    GoldenRetriever,
-    AlphaMatrix,
-    DEFAULT_CATEGORIES,
-)
+from golden_retriever import GoldenRetriever
 import pytest
 
+# finish this later
+# fix this later - merge it with llama hub and you can fix everything from there
 
 @pytest.fixture
 def setup() -> dict:
@@ -21,7 +19,7 @@ def setup() -> dict:
         embed_model=AzureOpenAIEmbedding(
             model="text-embedding-ada-002",
             azure_deployment="text-embedding-ada-002",
-            azure_endpoint=str(settings.azure_openai_api_base),
+            azure_endpoint=str(settings.openai_api_base),
             api_version=str(settings.azure_openai_api_version),
             api_key=str(settings.azure_openai_api_key),
         ),
@@ -36,19 +34,9 @@ def setup() -> dict:
 
     shots = AlphaMatrix(data=DEFAULT_CATEGORIES)
 
-    vector_index = VectorStoreIndex.from_vector_store(
-        vector_store=PGVectorStore.from_params(
-            host=str(settings.pgvector_host),
-            port=str(settings.pgvector_port),
-            user=str(settings.pgvector_user),
-            password=str(settings.pgvector_password),
-            database=str(settings.pgvector_database),
-            schema_name=str(settings.pgvector_schema),
-            table_name="vector_store",
-            embed_dim=1536,
-            hybrid_search=True,
-        ),
-        service_context=service_context,
+    vector_index = VectorStoreIndex.from_documents(
+        [Document.example()]
+        , service_context=service_context
     )
 
     reranker = LLMRerank(service_context=service_context)
