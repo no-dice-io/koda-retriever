@@ -9,11 +9,12 @@ Author: no_dice
 """
 
 from typing import Optional, List
+from llama_index.vector_stores.types import VectorStoreQueryMode
 from llama_index.core.base_retriever import BaseRetriever
 from llama_index.indices.vector_store import VectorIndexRetriever, VectorStoreIndex
 from llama_index.postprocessor import BaseNodePostprocessor
 from llama_index.llms import LLM
-from llama_index.schema import NodeWithScore, QuelsryType
+from llama_index.schema import NodeWithScore, QueryType
 from .constants import CATEGORIZER_PROMPT, DEFAULT_CATEGORIES
 import logging
 from .matrix import AlphaMatrix
@@ -81,7 +82,7 @@ class GoldenRetriever(BaseRetriever):
                         )
         >>> results = retriever.retrieve("What happened on Y2K?")
 
-    """
+    """                                                             
 
     def __init__(
         self,
@@ -98,7 +99,7 @@ class GoldenRetriever(BaseRetriever):
         self.index = index
         self.retriever = VectorIndexRetriever(
             index=index,
-            vector_store_query_mode="hybrid",
+            vector_store_query_mode=VectorStoreQueryMode.HYBRID,
             alpha=default_alpha,
             **kwargs,  # filters, etc, added here
         )

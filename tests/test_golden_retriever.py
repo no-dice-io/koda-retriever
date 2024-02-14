@@ -1,6 +1,5 @@
 from asyncio import run
-from . import GoldenRetriever
-
+from golden_retriever import GoldenRetriever
 
 def test_init(setup):
 
@@ -16,7 +15,7 @@ def test_init(setup):
 def test_retrieve(setup):
 
     retriever = setup.get("retriever")
-    query = "Why should I use semantic search to rank results?"
+    query = "How many Jurassic Park movies are there?"
     results = retriever.retrieve(query)
 
     assert isinstance(results, list), "retrieve should return a list"
@@ -25,7 +24,7 @@ def test_retrieve(setup):
 def test_a_retrieve(setup):
 
     retriever = setup.get("retriever")
-    query = "Why should I use semantic search to rank results?"
+    query = "How many Jurassic Park movies are there?"
     results = run(retriever.aretrieve(query))
 
     assert isinstance(results, list), "aretrieve should return a list"
@@ -36,7 +35,7 @@ def test_categorize(setup):
     retriever = setup.get("retriever")
     expected_categories = setup.get("matrix").get_categories()
 
-    query = "Why should I use semantic search to rank results?"
+    query = "What are LLMs good at?"
     category = retriever.categorize(query)
 
     assert isinstance(category, str), "categorize should return a string"
@@ -48,7 +47,7 @@ def test_categorize(setup):
 def test_category_retrieve(setup):
 
     retriever = setup.get("retriever")
-    query = "Why should I use semantic search to rank results?"
+    query = "What are LLMs good at?"
     category = "concept seeking query"
 
     results = retriever.category_retrieve(category, query)

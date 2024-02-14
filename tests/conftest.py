@@ -1,43 +1,48 @@
 from config import settings
-from llama_index.llms import AzureOpenAI
-from llama_index.vector_stores import PGVectorStore
+from llama_index.llms import OpenAI
 from llama_index import ServiceContext, VectorStoreIndex, Document
-from llama_index.embeddings import OpenAIEmbedding, AzureOpenAIEmbedding
+from llama_index.embeddings import OpenAIEmbedding
 from llama_index.postprocessor import LLMRerank
 from llama_index.indices.vector_store import VectorStoreIndex
-from golden_retriever import GoldenRetriever
+from llama_index.vector_stores import PineconeVectorStore
+from golden_retriever import (
+    GoldenRetriever
+    , AlphaMatrix
+    , DEFAULT_CATEGORIES
+)
 import pytest
-
-# finish this later
-# fix this later - merge it with llama hub and you can fix everything from there
+import os
+from pinecone import Pinecone
 
 @pytest.fixture
 def setup() -> dict:
     """Pytest fixture to set up the GoldenRetriever and its dependencies"""
 
+    os.environ["OPENAI_API_KEY"] = str(settings.openai_api_key)
+
+    pc = Pinecone(api_key=settings.pinecone_api_key)
+    index = pc.Index("sample-movies")
+
     service_context = ServiceContext.from_defaults(
-        embed_model=AzureOpenAIEmbedding(
-            model="text-embedding-ada-002",
-            azure_deployment="text-embedding-ada-002",
-            azure_endpoint=str(settings.openai_api_base),
-            api_version=str(settings.azure_openai_api_version),
-            api_key=str(settings.azure_openai_api_key),
+        embed_model=OpenAIEmbedding(
+            model="text-embedding-ada-002"
         ),
-        llm=AzureOpenAI(
-            model="gpt-4",
-            azure_deployment="gpt-4",
-            azure_endpoint=str(settings.azure_openai_api_base),
-            api_version=str(settings.azure_openai_api_version),
-            api_key=str(settings.azure_openai_api_key),
-        ),
+        llm=OpenAI(
+            model="gpt-3.5-turbo"
+        )
+    )
+
+    vector_store = PineconeVectorStore(
+        pinecone_index=index
+        , text_key="summary"
+    )
+    print(vector_store)
+    vector_index = VectorStoreIndex.from_vector_store(
+        vector_store = vector_store
+        , service_context=service_context
     )
 
     shots = AlphaMatrix(data=DEFAULT_CATEGORIES)
-
-    vector_index = VectorStoreIndex.from_documents(
-        [Document.example()]
-        , service_context=service_context
-    )
 
     reranker = LLMRerank(service_context=service_context)
 
