@@ -26,7 +26,6 @@ jobs:
     - name: describe
       run: make describe
     - name: Install dependencies
-      working-directory: /home/runner/work/koda-retriever/
       run: 
         make setup
     - name: Lint with black
