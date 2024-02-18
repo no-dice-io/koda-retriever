@@ -54,6 +54,8 @@ pip install -e .
 # This requires: An OpenAI API Key + Pinecone API Key
 # Start w/ 'Quickstart' steps above
 
+pip install pytest
+
 export KODA_OPENAI_API_KEY="<openai_api_key_here>" # Necessary for the retriever itself
 export KODA_PINECONE_API_KEY="<pinecone_api_key_here>" # Necessary for the retriever itself
 ```
