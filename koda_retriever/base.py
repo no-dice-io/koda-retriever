@@ -9,12 +9,13 @@ Author: no_dice
 """
 
 from typing import Optional, List
-from llama_index.vector_stores.types import VectorStoreQueryMode
-from llama_index.core.base_retriever import BaseRetriever
-from llama_index.indices.vector_store import VectorIndexRetriever, VectorStoreIndex
-from llama_index.postprocessor import BaseNodePostprocessor
-from llama_index.llms import LLM
-from llama_index.schema import NodeWithScore, QueryType
+from llama_index.core.vector_stores.types import VectorStoreQueryMode
+from llama_index.core.retrievers import BaseRetriever
+from llama_index.core.retrievers import VectorIndexRetriever
+from llama_index.core import VectorStoreIndex
+from llama_index.core.postprocessor.types import BaseNodePostprocessor
+from llama_index.core.llms import LLM
+from llama_index.core.schema import NodeWithScore, QueryType
 from .constants import CATEGORIZER_PROMPT, DEFAULT_CATEGORIES
 import logging
 from .matrix import AlphaMatrix
@@ -49,7 +50,7 @@ class KodaRetriever(BaseRetriever):
         >>> # Example 1 - provide your own LLM
         >>> retriever = KodaRetriever( # woof woof
                             index=vector_index
-                            , llm=service_context.llm
+                            , llm=Settings.llm
                             , verbose=True
                         )
         >>> results = retriever.retrieve("What is the capital of France?")
@@ -76,7 +77,7 @@ class KodaRetriever(BaseRetriever):
 
         >>> retriever = KodaRetriever( # woof woof
                             index=vector_index
-                            , llm=service_context.llm
+                            , llm=Settings.llm
                             , matrix=matrix_data
                             , verbose=True
                         )

@@ -1,7 +1,11 @@
+![build-workflow](https://github.com/github/docs/actions/workflows/python-app.yml/badge.svg) 
+
 # Koda Retriever
 This retriever is a custom fine-tunable Hybrid Retriever that dynamically determines the optimal alpha for a given query.
 An LLM is used to categorize the query and therefore determine the optimal alpha value, as each category has a preset/provided alpha value.
 It is recommended that you run tests on your corpus of data and queries to determine categories and corresponding alpha values for your use case.
+
+![koda-retriever-mascot](https://i.imgur.com/224ocIw.jpeg)
 
 ### Disclaimer
 *The default categories and alpha values are not recommended for production use*
@@ -17,7 +21,7 @@ Imagine you're playing a game where someone whispers a sentence to you, and you 
 ```python
 retriever = KodaRetriever(
     index = vector_index
-    , llm = service_context.llm
+    , llm = Settings.llm
     , reranker = reranker
     , matrix = tuned_alpha_categories
     , verbose = True
@@ -28,18 +32,30 @@ query = "What is the capital of France?"
 results = retriever.retrieve(query)
 ```
 
+### Prerequisites
+- [OpenAI API Key](https://platform.openai.com/overview)  *(default)*
+- [Pinecone API Key](https://www.pinecone.io/) *(just for testing)*
+
+*The OpenAI API Key is not necessary for usage of the retriever itself if you plan on using an Open Source model - but your tests will fail for now*
+
 ## Setup
 
 ### Quickstart
 ```bash
 pip install --upgrade pip
 pip install -r requirements.txt
+pip install -e .
 ```
 
-### For testing/notebooks
+### Testing
+
 ```bash
-pip install -r requirements.txt
-pip install black dynaconf 
+# You'll need to set your environment variables
+# This requires: An OpenAI API Key + Pinecone API Key
+# Start w/ 'Quickstart' steps above
+
+export KODA_OPENAI_API_KEY="<openai_api_key_here>" # Necessary for the retriever itself
+export KODA_PINECONE_API_KEY="<pinecone_api_key_here>" # Necessary for the retriever itself
 ```
 
 ## Citations
