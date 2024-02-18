@@ -15,6 +15,7 @@ SETTINGS = Dynaconf(
     envvar_prefix="KODA"
 )
 
+
 @pytest.fixture
 def setup() -> dict:
     """Pytest fixture to set up the KodaRetriever and its dependencies"""
