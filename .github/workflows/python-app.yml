@@ -18,7 +18,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - working-directory: ./koda-retriever
     - uses: actions/checkout@v3
     - name: Set up Python 3.10
       uses: actions/setup-python@v3
@@ -27,11 +26,14 @@ jobs:
     - name: describe
       run: make describe
     - name: Install dependencies
+      working-directory: /home/runner/work/koda-retriever/
       run: 
         make setup
     - name: Lint with black
+      working-directory: /home/runner/work/koda-retriever/
       run: 
         make lint
     - name: Test with pytest
+      working-directory: /home/runner/work/koda-retriever/
       run: 
         make test
