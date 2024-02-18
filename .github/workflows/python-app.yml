@@ -26,9 +26,16 @@ jobs:
     - name: Install dependencies
       run: 
         make setup
+    - name: describe
+      run: make describe
     - name: Lint with black
       run: 
         make lint
     - name: Test with pytest
       run: 
         make test
+      env: 
+        KODA_OPENAI_API_KEY: ${{ secrets.KODA_OPENAI_API_KEY }}
+        KODA_PINECONE_API_KEY: ${{ secrets.KODA_PINECONE_API_KEY }}
+        KODA_PINECONE_BASE: ${{ secrets.KODA_PINECONE_BASE }}
+

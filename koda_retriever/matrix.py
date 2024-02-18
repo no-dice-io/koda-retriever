@@ -4,9 +4,9 @@ from typing import Optional, Dict, List
 
 class AlphaMatrix(BaseModel):
     """
-    This class is not necessary to understand to use a GoldenRetriever - as it will be automatically instantiated if a dictionary is provided.
+    This class is not necessary to understand to use a KodaRetriever - as it will be automatically instantiated if a dictionary is provided.
 
-    Pydantic class to enforce the required fields for a GoldenRetriever
+    Pydantic class to enforce the required fields for a KodaRetriever
     Its best to just instantiate this using a dictionary, don't both trying to instantiate by declaring any AlphaCategory objects.
 
     Example:
