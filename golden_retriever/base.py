@@ -82,7 +82,7 @@ class GoldenRetriever(BaseRetriever):
                         )
         >>> results = retriever.retrieve("What happened on Y2K?")
 
-    """                                                             
+    """
 
     def __init__(
         self,

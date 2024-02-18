@@ -5,14 +5,11 @@ from llama_index.embeddings import OpenAIEmbedding
 from llama_index.postprocessor import LLMRerank
 from llama_index.indices.vector_store import VectorStoreIndex
 from llama_index.vector_stores import PineconeVectorStore
-from golden_retriever import (
-    GoldenRetriever
-    , AlphaMatrix
-    , DEFAULT_CATEGORIES
-)
+from golden_retriever import GoldenRetriever, AlphaMatrix, DEFAULT_CATEGORIES
 import pytest
 import os
 from pinecone import Pinecone
+
 
 @pytest.fixture
 def setup() -> dict:
@@ -24,22 +21,14 @@ def setup() -> dict:
     index = pc.Index("sample-movies")
 
     service_context = ServiceContext.from_defaults(
-        embed_model=OpenAIEmbedding(
-            model="text-embedding-ada-002"
-        ),
-        llm=OpenAI(
-            model="gpt-3.5-turbo"
-        )
+        embed_model=OpenAIEmbedding(model="text-embedding-ada-002"),
+        llm=OpenAI(model="gpt-3.5-turbo"),
     )
 
-    vector_store = PineconeVectorStore(
-        pinecone_index=index
-        , text_key="summary"
-    )
+    vector_store = PineconeVectorStore(pinecone_index=index, text_key="summary")
     print(vector_store)
     vector_index = VectorStoreIndex.from_vector_store(
-        vector_store = vector_store
-        , service_context=service_context
+        vector_store=vector_store, service_context=service_context
     )
 
     shots = AlphaMatrix(data=DEFAULT_CATEGORIES)
