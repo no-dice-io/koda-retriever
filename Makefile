@@ -4,7 +4,6 @@ setup:
 	pip install --upgrade pip
 	#pip install -r requirements.txt
 	pip install -e .
-	pip install black
 make re-setup:
 	rm -rf .venv
 	virtualenv .venv
