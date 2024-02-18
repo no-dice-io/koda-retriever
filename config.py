@@ -8,5 +8,5 @@ from dynaconf import Dynaconf
 
 settings = Dynaconf(
     # export envvars with `export GR_FOO=bar`, then access with `settings.foo`
-    envvar_prefix="GR"
+    envvar_prefix="KODA"
 )

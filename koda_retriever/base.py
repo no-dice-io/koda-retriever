@@ -20,13 +20,13 @@ import logging
 from .matrix import AlphaMatrix
 
 
-class GoldenRetriever(BaseRetriever):
+class KodaRetriever(BaseRetriever):
     """
     Custom Hybrid Retriever that dynamically determines the optimal alpha for a given query.
     An LLM is used to categorize the query and therefore determine the optimal alpha value, as each category has a preset/provided alpha value.
     It is recommended that you run tests on your corpus of data and queries to determine categories and corresponding alpha values for your use case.
 
-    GoldenRetriever is built from BaseRetriever, and therefore is a llama-index compatible drop-in replacement for any hybrid retriever.
+    KodaRetriever is built from BaseRetriever, and therefore is a llama-index compatible drop-in replacement for any hybrid retriever.
 
     Auto-routing is NOT enabled without providing an LLM.
     If no LLM is provided, the default alpha value will be used for all queries and no alpha tuning will be done.
@@ -43,11 +43,11 @@ class GoldenRetriever(BaseRetriever):
         **kwargs: Additional arguments for VectorIndexRetriever
 
     Returns:
-        GoldenRetriever
+        KodaRetriever
 
     Examples:
         >>> # Example 1 - provide your own LLM
-        >>> retriever = GoldenRetriever( # woof woof
+        >>> retriever = KodaRetriever( # woof woof
                             index=vector_index
                             , llm=service_context.llm
                             , verbose=True
@@ -74,7 +74,7 @@ class GoldenRetriever(BaseRetriever):
                 }
             }
 
-        >>> retriever = GoldenRetriever( # woof woof
+        >>> retriever = KodaRetriever( # woof woof
                             index=vector_index
                             , llm=service_context.llm
                             , matrix=matrix_data

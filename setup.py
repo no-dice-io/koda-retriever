@@ -4,10 +4,10 @@ with open("requirements.txt") as f:
     requirements = f.read().splitlines()
 
 setup(
-    name="golden-retriever",  # Replace with your own project name
+    name="koda-retriever",  # Replace with your own project name
     version="0.1.0",  # Replace with your own version
     packages=find_packages(
-        include=["golden_retriever", "golden_retriever.src.*"]
+        include=["koda_retriever", "koda_retriever.src.*"]
     ),  # Replace with your own packages
     install_requires=requirements,
     entry_points={

@@ -5,7 +5,7 @@ from llama_index.embeddings import OpenAIEmbedding
 from llama_index.postprocessor import LLMRerank
 from llama_index.indices.vector_store import VectorStoreIndex
 from llama_index.vector_stores import PineconeVectorStore
-from golden_retriever import GoldenRetriever, AlphaMatrix, DEFAULT_CATEGORIES
+from koda_retriever import KodaRetriever, AlphaMatrix, DEFAULT_CATEGORIES
 import pytest
 import os
 from pinecone import Pinecone
@@ -13,7 +13,7 @@ from pinecone import Pinecone
 
 @pytest.fixture
 def setup() -> dict:
-    """Pytest fixture to set up the GoldenRetriever and its dependencies"""
+    """Pytest fixture to set up the KodaRetriever and its dependencies"""
 
     os.environ["OPENAI_API_KEY"] = str(settings.openai_api_key)
 
@@ -35,7 +35,7 @@ def setup() -> dict:
 
     reranker = LLMRerank(service_context=service_context)
 
-    retriever = GoldenRetriever(
+    retriever = KodaRetriever(
         index=vector_index,
         llm=service_context.llm,
         reranker=reranker,

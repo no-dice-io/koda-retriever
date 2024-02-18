@@ -1,3 +1,3 @@
 """Boilerplate, just making this easier to import."""
 
-from golden_retriever import *
+from koda_retriever import *

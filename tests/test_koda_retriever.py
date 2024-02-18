@@ -1,5 +1,5 @@
 from asyncio import run
-from golden_retriever import GoldenRetriever
+from koda_retriever import KodaRetriever
 
 
 def test_init(setup):
@@ -9,8 +9,8 @@ def test_init(setup):
     assert retriever.index is not None, "index should not be None"
     assert retriever.llm is not None, "llm should not be None"
     assert isinstance(
-        retriever, GoldenRetriever
-    ), "retriever should be an instance of GoldenRetriever"
+        retriever, KodaRetriever
+    ), "retriever should be an instance of KodaRetriever"
 
 
 def test_retrieve(setup):
