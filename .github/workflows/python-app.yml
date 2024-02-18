@@ -29,10 +29,8 @@ jobs:
       run: 
         make setup
     - name: Lint with black
-      working-directory: /home/runner/work/koda-retriever/
       run: 
         make lint
     - name: Test with pytest
-      working-directory: /home/runner/work/koda-retriever/
       run: 
         make test
