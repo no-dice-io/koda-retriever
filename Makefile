@@ -17,5 +17,6 @@ lint:
 describe:
 	pwd
 	ls -R
+	echo $PYTHONPATH
 test:
 	pytest tests
