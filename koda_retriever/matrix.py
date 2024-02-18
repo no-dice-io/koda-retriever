@@ -13,7 +13,7 @@ class AlphaMatrix(BaseModel):
         >>> data = {
                 "normal query": { # examples is not required if you aren't using few-shot auto-routing
                     "alpha": .5
-                    , "description": "This is a normal query"
+                    , "description": "This is a normal query" # desc is not required if you aren't using few-shot auto-routing
                     , "examples": ["This is a normal query", "Another normal query"]
                 }
             }
@@ -27,9 +27,11 @@ class AlphaMatrix(BaseModel):
         """
 
         alpha: float
-        description: str
+        description: Optional[str] = (
+            None  # optional if providing a custom LLM, its presumed this was part of your training data for the custom model
+        )
         examples: Optional[List[str]] = (
-            None  # if not providing a custom LLM, this is required
+            None  # if not providing a custom model, this is required
         )
 
     data: Dict[str, AlphaCategory]
