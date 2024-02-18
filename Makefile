@@ -9,5 +9,7 @@ format:
 	black .
 lint:
 	black --check .
+describe:
+	pwd
 test:
 	pytest tests
