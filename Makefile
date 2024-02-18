@@ -4,7 +4,7 @@ setup:
 	pip install --upgrade pip
 	pip install -r requirements.txt
 	pip install black
-
+	export PYTHONPATH="${PYTHONPATH}:$(pwd)"
 make re-setup:
 	rm -rf .venv
 	virtualenv .venv
