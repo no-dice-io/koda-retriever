@@ -4,7 +4,7 @@ setup:
 	pip install --upgrade pip
 	#pip install -r requirements.txt
 	pip install -e .
-	pip install black
+	pip install pytest
 make re-setup:
 	rm -rf .venv
 	virtualenv .venv
