@@ -1,4 +1,4 @@
-# GoldenRetriever
+# Ranger Retriever
 This retriever is a custom fine-tunable Hybrid Retriever that dynamically determines the optimal alpha for a given query.
 An LLM is used to categorize the query and therefore determine the optimal alpha value, as each category has a preset/provided alpha value.
 It is recommended that you run tests on your corpus of data and queries to determine categories and corresponding alpha values for your use case.
@@ -15,7 +15,7 @@ Imagine you're playing a game where someone whispers a sentence to you, and you 
 ## Usage
 
 ```python
-retriever = GoldenRetriever(
+retriever = RangerRetriever(
     index = vector_index
     , llm = service_context.llm
     , reranker = reranker
