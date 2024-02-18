@@ -1,4 +1,4 @@
-![build-workflow](https://github.com/no-dice-io/koda-retriever/actions/workflows/python-app.yml/badge.svg) 
+![build-workflow](https://github.com/no-dice-io/koda-retriever/actions/workflows/build.yml/badge.svg) 
 
 # Koda Retriever
 This retriever is a custom fine-tunable Hybrid Retriever that dynamically determines the optimal alpha for a given query.
