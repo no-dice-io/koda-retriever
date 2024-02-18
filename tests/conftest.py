@@ -1,4 +1,3 @@
-from config import settings
 from llama_index.llms import OpenAI
 from llama_index import ServiceContext, VectorStoreIndex, Document
 from llama_index.embeddings import OpenAIEmbedding
@@ -9,15 +8,20 @@ from koda_retriever import KodaRetriever, AlphaMatrix, DEFAULT_CATEGORIES
 import pytest
 import os
 from pinecone import Pinecone
+from dynaconf import Dynaconf
 
+SETTINGS = Dynaconf(
+    # export envvars with `export KODA_FOO=bar`, then access with `SETTINGS.foo`
+    envvar_prefix="KODA"
+)
 
 @pytest.fixture
 def setup() -> dict:
     """Pytest fixture to set up the KodaRetriever and its dependencies"""
 
-    os.environ["OPENAI_API_KEY"] = str(settings.openai_api_key)
+    os.environ["OPENAI_API_KEY"] = str(SETTINGS.openai_api_key)
 
-    pc = Pinecone(api_key=settings.pinecone_api_key)
+    pc = Pinecone(api_key=SETTINGS.pinecone_api_key)
     index = pc.Index("sample-movies")
 
     service_context = ServiceContext.from_defaults(

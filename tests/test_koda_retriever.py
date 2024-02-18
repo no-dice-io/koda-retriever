@@ -1,7 +1,6 @@
 from asyncio import run
 from koda_retriever import KodaRetriever
 
-
 def test_init(setup):
 
     retriever = setup.get("retriever")
