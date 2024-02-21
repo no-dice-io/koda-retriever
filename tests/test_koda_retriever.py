@@ -1,13 +1,17 @@
 from asyncio import run
 from koda_retriever import KodaRetriever
+from llama_index.core.indices.base import BaseIndex
+from llama_index.core.llms.base import BaseLLM
 
 
 def test_init(setup):
 
     retriever = setup.get("retriever")
 
-    assert retriever.index is not None, "index should not be None"
-    assert retriever.llm is not None, "llm should not be None"
+    assert isinstance(
+        retriever.index, BaseIndex
+    ), "index should be an instance of BaseIndex"
+    assert isinstance(retriever.llm, BaseLLM), "llm should be an instance of LLM"
     assert isinstance(
         retriever, KodaRetriever
     ), "retriever should be an instance of KodaRetriever"
@@ -16,7 +20,8 @@ def test_init(setup):
 def test_retrieve(setup):
 
     retriever = setup.get("retriever")
-    query = "How many Jurassic Park movies are there?"
+    llm = setup.get("llm")
+    query = llm.random_prompt()
     results = retriever.retrieve(query)
 
     assert isinstance(results, list), "retrieve should return a list"
@@ -25,7 +30,8 @@ def test_retrieve(setup):
 def test_a_retrieve(setup):
 
     retriever = setup.get("retriever")
-    query = "How many Jurassic Park movies are there?"
+    llm = setup.get("llm")
+    query = llm.random_prompt()
     results = run(retriever.aretrieve(query))
 
     assert isinstance(results, list), "aretrieve should return a list"
@@ -36,7 +42,8 @@ def test_categorize(setup):
     retriever = setup.get("retriever")
     expected_categories = setup.get("matrix").get_categories()
 
-    query = "What are LLMs good at?"
+    llm = setup.get("llm")
+    query = llm.random_prompt()
     category = retriever.categorize(query)
 
     assert isinstance(category, str), "categorize should return a string"
@@ -48,8 +55,9 @@ def test_categorize(setup):
 def test_category_retrieve(setup):
 
     retriever = setup.get("retriever")
-    query = "What are LLMs good at?"
-    category = "concept seeking query"
+    llm = setup.get("llm")
+    query = llm.random_prompt()
+    category = llm.prompt_responses.get(query, "concept seeking query")
 
     results = retriever.category_retrieve(category, query)
 
